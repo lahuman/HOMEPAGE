@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
@@ -14,8 +13,7 @@ import javax.persistence.Id;
 @Data
 public class ProjectVersion extends DefaultEntity {
     @Id
-    @Column(name = "VERSION_ID")
-    @GeneratedValue
+    @Column(name = "VERSION_ID", nullable = false)
     private Long id;
 
     private String version;

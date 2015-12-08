@@ -1,7 +1,6 @@
 package kr.pe.lahuman.models;
 
 import lombok.Data;
-import org.dom4j.tree.DefaultEntity;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -29,7 +28,7 @@ public class Project extends DefaultEntity{
     private String contents;
 
     @OneToMany
-    @JoinColumn(name = "VERSION_ID", referencedColumnName = "PROJECT_ID", nullable = false)
+    @JoinColumn(name = "VERSION_ID", referencedColumnName = "PROJECT_ID")
     private Set<ProjectVersion> projectVersions = new HashSet<>();
 
 }

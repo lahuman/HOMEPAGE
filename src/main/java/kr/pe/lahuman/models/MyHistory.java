@@ -21,6 +21,8 @@ public class MyHistory extends DefaultEntity {
     private String year;
     @Column(length = 2, nullable = false)
     private String startMonth;
+    @Column(length = 2, nullable = false)
+    private String endMonth;
     @Column(length = 4000, nullable = false)
     private String contents;
 
