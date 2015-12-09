@@ -1,7 +1,10 @@
 package kr.pe.lahuman.myhistory;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
@@ -15,16 +18,42 @@ public class MyHistoryDTO {
         private String startMonth;
         private String endMonth;
         private String contents;
-        private Date regist_dt;
-        private Date modify_dt;
+        private Date registerDt;
+        private Date modifyDt;
     }
 
     @Data
     public static class Create{
+        @NotBlank
+        @Size(min = 4, max = 4)
         private String year;
+        @NotBlank
+        @Size(min = 2, max = 2)
         private String startMonth;
+        @NotBlank
+        @Size(min = 2, max = 2)
         private String endMonth;
+        @NotBlank()
         private String contents;
     }
 
+    @Data
+    public static class Update {
+        @Size(min = 4, max = 4)
+        private String year;
+        @NotBlank
+        @Size(min = 2, max = 2)
+        private String startMonth;
+        @NotBlank
+        @Size(min = 2, max = 2)
+        private String endMonth;
+        @NotBlank
+        private String contents;
+
+    }
+    @Data
+    public static class Delete{
+        @NotBlank
+        private Long id;
+    }
 }

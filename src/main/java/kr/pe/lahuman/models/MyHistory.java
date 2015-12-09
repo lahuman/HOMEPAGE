@@ -2,17 +2,16 @@ package kr.pe.lahuman.models;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by lahuman on 15. 12. 7.
  */
 @Data
 @Entity
-public class MyHistory extends DefaultEntity {
+public class MyHistory extends DefaultEntity{
+
     @Id
     @GeneratedValue
     private Long id;
@@ -25,5 +24,6 @@ public class MyHistory extends DefaultEntity {
     private String endMonth;
     @Column(length = 4000, nullable = false)
     private String contents;
+
 
 }

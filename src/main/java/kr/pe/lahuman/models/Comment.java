@@ -13,9 +13,11 @@ import java.util.Set;
 @Entity
 public class Comment extends DefaultEntity {
 
+
     @Id
     @GeneratedValue
     private Long id;
+
     @Column(length = 40)
     private String name;
     @Column(length = 4)
