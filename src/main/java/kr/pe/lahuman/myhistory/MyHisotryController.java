@@ -56,10 +56,7 @@ public class MyHisotryController {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public ResponseEntity remove(@NonNull @PathVariable Long id, BindingResult result){
-        if(result.hasErrors()){
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity remove(@NonNull @PathVariable Long id){
         myHistoryService.removeMyHistory(id);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
