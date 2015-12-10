@@ -18,7 +18,7 @@ public class Utils {
                 .filter(f -> f instanceof FieldError)
                 .map(fieldError -> ((FieldError)fieldError).getField() + ":[" + fieldError.getCode()+"] "+fieldError.getDefaultMessage())
                 .collect(Collectors.joining(", "));
-            throw new CustomExceptions.APIBindValidException(errorMsg);
+            throw new CustomExceptions.JSONBindValidException(errorMsg);
 
 //            StringBuilder errorMsg = new StringBuilder();
 //            for (Object object : result.getAllErrors()) {
@@ -28,7 +28,7 @@ public class Utils {
 //                    errorMsg.append(fieldError.getField()+":"+fieldError.getCode());
 //                }
 //            }
-//            throw new CustomExceptions.APIBindValidException(errorMsg.toString());
+//            throw new CustomExceptions.JSONBindValidException(errorMsg.toString());
         }
     }
 

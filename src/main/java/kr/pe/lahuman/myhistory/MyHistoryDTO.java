@@ -11,6 +11,8 @@ import java.util.Date;
  * Created by lahuman on 15. 12. 8.
  */
 public class MyHistoryDTO {
+    private MyHistoryDTO(){};
+
     @Data
     public static class Response{
         private Long id;
@@ -23,22 +25,8 @@ public class MyHistoryDTO {
     }
 
     @Data
-    public static class Create{
+    public static class Request {
         @NotBlank
-        @Size(min = 4, max = 4)
-        private String year;
-        @NotBlank
-        @Size(min = 2, max = 2)
-        private String startMonth;
-        @NotBlank
-        @Size(min = 2, max = 2)
-        private String endMonth;
-        @NotBlank()
-        private String contents;
-    }
-
-    @Data
-    public static class Update {
         @Size(min = 4, max = 4)
         private String year;
         @NotBlank
@@ -49,6 +37,5 @@ public class MyHistoryDTO {
         private String endMonth;
         @NotBlank
         private String contents;
-
     }
 }

@@ -47,18 +47,18 @@ public class MyHisotryTest {
 
     @Test
     public void getMyHistoryList() throws Exception {
-        MyHistoryDTO.Create createDto = new MyHistoryDTO.Create();
+        MyHistoryDTO.Request requestDto = new MyHistoryDTO.Request();
         //set Data
-        createDto.setYear("2015");
-        createDto.setStartMonth("01");
-        createDto.setEndMonth("12");
-        createDto.setContents("기상청 유지관리");
+        requestDto.setYear("2015");
+        requestDto.setStartMonth("01");
+        requestDto.setEndMonth("12");
+        requestDto.setContents("기상청 유지관리");
 
-        myHistoryService.addMyHistory(createDto);
-        myHistoryService.addMyHistory(createDto);
-        myHistoryService.addMyHistory(createDto);
-        myHistoryService.addMyHistory(createDto);
-        myHistoryService.addMyHistory(createDto);
+        myHistoryService.addMyHistory(requestDto);
+        myHistoryService.addMyHistory(requestDto);
+        myHistoryService.addMyHistory(requestDto);
+        myHistoryService.addMyHistory(requestDto);
+        myHistoryService.addMyHistory(requestDto);
 
 
 

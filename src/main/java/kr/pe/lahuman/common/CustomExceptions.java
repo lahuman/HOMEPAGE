@@ -1,23 +1,24 @@
 package kr.pe.lahuman.common;
 
 import lombok.Data;
-import org.springframework.validation.BindingResult;
 
 /**
  * Created by lahuman on 15. 12. 9.
  */
 public class CustomExceptions {
+
+    private CustomExceptions(){};
+
     @Data
-    public static class APINotFoundException extends RuntimeException{
-        public APINotFoundException(String serviceCode, Long id){
+    public static class JSONNotFoundException extends RuntimeException{
+        public JSONNotFoundException(String serviceCode, Long id){
             super("Could not find ID : "+ id +" ::: SERVICE CODE :  "+serviceCode);
         }
     }
 
     @Data
-    public static class APIBindValidException extends RuntimeException{
-
-        public APIBindValidException(String message) {
+    public static class JSONBindValidException extends RuntimeException{
+        public JSONBindValidException(String message) {
             super(message);
         }
     }

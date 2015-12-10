@@ -41,7 +41,7 @@ public class MyHisotryController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity createMyHistory(@RequestBody @Valid MyHistoryDTO.Create dto, BindingResult result){
+    public ResponseEntity createMyHistory(@RequestBody @Valid MyHistoryDTO.Request dto, BindingResult result){
         Utils.checkValid4JSON(result);
         MyHistory myHistory = myHistoryService.addMyHistory(dto);
         return getResponseEntity(myHistory);
@@ -49,7 +49,7 @@ public class MyHisotryController {
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public ResponseEntity updateMyHistory(@NonNull @PathVariable Long id,
-                                          @RequestBody @Valid MyHistoryDTO.Update dto, BindingResult result){
+                                          @RequestBody @Valid MyHistoryDTO.Request dto, BindingResult result){
         Utils.checkValid4JSON(result);
         MyHistory myHistory = myHistoryService.modifyMyHistory(id, dto);
         return getResponseEntity(myHistory);

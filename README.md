@@ -11,6 +11,9 @@ http://bit.ly/1RnWv1E
 ###- 홈페이지 프로토타입
 https://goo.gl/NJjHfk
 
+
+###-참고 URL
+[SPRING-DATA-REST](http://docs.spring.io/spring-data/rest/docs/current/reference/html/)
 ----------------------------------------------------------------
 
 #ENGLISH
@@ -25,3 +28,6 @@ http://bit.ly/1RnWv1E
 
 ###- LAYOUT PROTOTYPE
 https://goo.gl/NJjHfk
+
+### Reference
+[SPRING-DATA-REST](http://docs.spring.io/spring-data/rest/docs/current/reference/html/)

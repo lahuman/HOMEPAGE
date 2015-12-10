@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice(basePackages = "kr.pe.lahuman")
 public class GlobalControllerExceptionHandler extends ResponseEntityExceptionHandler{
 
-    @ExceptionHandler({CustomExceptions.APINotFoundException.class, CustomExceptions.APIBindValidException.class})
+    @ExceptionHandler({CustomExceptions.JSONNotFoundException.class, CustomExceptions.JSONBindValidException.class})
     @ResponseBody
     ResponseEntity<?> handleControllerException(HttpServletRequest request, Throwable ex) {
         HttpStatus status = getStatus(ex);
@@ -23,9 +23,9 @@ public class GlobalControllerExceptionHandler extends ResponseEntityExceptionHan
     }
 
     private HttpStatus getStatus(Throwable ex) {
-        if(ex instanceof CustomExceptions.APINotFoundException){
+        if(ex instanceof CustomExceptions.JSONNotFoundException){
             return HttpStatus.NOT_FOUND;
-        }else if( ex instanceof CustomExceptions.APIBindValidException){
+        }else if( ex instanceof CustomExceptions.JSONBindValidException){
             return HttpStatus.BAD_REQUEST;
         }
         return HttpStatus.INTERNAL_SERVER_ERROR;
