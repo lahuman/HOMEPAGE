@@ -51,9 +51,4 @@ public class MyHistoryDTO {
         private String contents;
 
     }
-    @Data
-    public static class Delete{
-        @NotBlank
-        private Long id;
-    }
 }

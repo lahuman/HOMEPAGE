@@ -6,6 +6,9 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -28,12 +31,13 @@ public class MyHisotryController {
     @Autowired
     private ModelMapper modelMapper;
 
-
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public List<MyHistoryDTO.Response> getMyHistory(){
-        return myHistoryService.list().stream()
+    public PageImpl<MyHistoryDTO.Response> getMyHistory(Pageable pageable){
+        Page<MyHistory> page = myHistoryService.list(pageable);
+        List<MyHistoryDTO.Response> content = page.getContent().stream()
                 .map(myHistory -> modelMapper.map(myHistory, MyHistoryDTO.Response.class)).collect(Collectors.toList());
+        return new PageImpl<MyHistoryDTO.Response>(content, pageable, page.getTotalElements());
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -43,16 +47,13 @@ public class MyHisotryController {
         return getResponseEntity(myHistory);
     }
 
-
-
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public ResponseEntity updateMyHistory(@NonNull @PathVariable Long id, @RequestBody @Valid MyHistoryDTO.Update dto, BindingResult result){
+    public ResponseEntity updateMyHistory(@NonNull @PathVariable Long id,
+                                          @RequestBody @Valid MyHistoryDTO.Update dto, BindingResult result){
         Utils.checkValid4JSON(result);
         MyHistory myHistory = myHistoryService.modifyMyHistory(id, dto);
         return getResponseEntity(myHistory);
     }
-
-
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public ResponseEntity remove(@NonNull @PathVariable Long id){

@@ -16,7 +16,7 @@ public class Utils {
 
             String errorMsg = result.getAllErrors().stream()
                 .filter(f -> f instanceof FieldError)
-                .map(fieldError -> ((FieldError)fieldError).getField() + ":" + fieldError.getCode())
+                .map(fieldError -> ((FieldError)fieldError).getField() + ":[" + fieldError.getCode()+"] "+fieldError.getDefaultMessage())
                 .collect(Collectors.joining(", "));
             throw new CustomExceptions.APIBindValidException(errorMsg);
 

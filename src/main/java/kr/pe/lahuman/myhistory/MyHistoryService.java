@@ -4,6 +4,8 @@ import kr.pe.lahuman.common.CustomExceptions;
 import kr.pe.lahuman.models.MyHistory;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -21,10 +23,10 @@ public class MyHistoryService {
     @Autowired
     private ModelMapper modelMapper;
 
-    private final String MY_HISTORY = "MYHISTORY";
+    private final String MY_HISTORY = "MY_HISTORY";
 
-    public List<MyHistory> list(){
-        return myHistoryRepository.findAll();
+    public Page<MyHistory> list(Pageable pageable){
+        return myHistoryRepository.findAll(pageable);
     }
 
     public MyHistory addMyHistory(MyHistoryDTO.Create createDto) {
