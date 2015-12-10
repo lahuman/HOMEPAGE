@@ -1,10 +1,10 @@
 package kr.pe.lahuman.common;
 
-import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,25 +12,22 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by lahuman on 15. 12. 7.
  */
-@ControllerAdvice
+@ControllerAdvice(basePackages = "kr.pe.lahuman")
 public class GlobalControllerExceptionHandler extends ResponseEntityExceptionHandler{
 
-    public static final String DEFAULT_ERROR_VIEW = "error";
+    @ExceptionHandler({CustomExceptions.APINotFoundException.class, CustomExceptions.APIBindValidException.class})
+    @ResponseBody
+    ResponseEntity<?> handleControllerException(HttpServletRequest request, Throwable ex) {
+        HttpStatus status = getStatus(ex);
+        return new ResponseEntity<>(new CustomErrorResponse(status.value(), status.getReasonPhrase(), ex.getMessage(), request.getServletPath()), status);
+    }
 
-    @ExceptionHandler(value = Exception.class)
-    public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
-        // If the exception is annotated with @ResponseStatus rethrow it and let
-        // the framework handle it - like the OrderNotFoundException example
-        // at the start of this post.
-        // AnnotationUtils is a Spring Framework utility class.
-        if (AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) != null)
-            throw e;
-
-        // Otherwise setup and send the user to a default error-view.
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("exception", e);
-        mav.addObject("url", req.getRequestURL());
-        mav.setViewName(DEFAULT_ERROR_VIEW);
-        return mav;
+    private HttpStatus getStatus(Throwable ex) {
+        if(ex instanceof CustomExceptions.APINotFoundException){
+            return HttpStatus.NOT_FOUND;
+        }else if( ex instanceof CustomExceptions.APIBindValidException){
+            return HttpStatus.BAD_REQUEST;
+        }
+        return HttpStatus.INTERNAL_SERVER_ERROR;
     }
 }

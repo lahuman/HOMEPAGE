@@ -1,5 +1,6 @@
 package kr.pe.lahuman.myhistory;
 
+import kr.pe.lahuman.common.Utils;
 import kr.pe.lahuman.models.MyHistory;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -37,23 +38,21 @@ public class MyHisotryController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity createMyHistory(@RequestBody @Valid MyHistoryDTO.Create dto, BindingResult result){
-        if(result.hasErrors()){
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
+        Utils.checkValid4JSON(result);
         MyHistory myHistory = myHistoryService.addMyHistory(dto);
-
-        return new ResponseEntity(modelMapper.map(myHistory, MyHistoryDTO.Response.class), HttpStatus.OK);
+        return getResponseEntity(myHistory);
     }
+
+
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public ResponseEntity updateMyHistory(@NonNull @PathVariable Long id, @RequestBody @Valid MyHistoryDTO.Update dto, BindingResult result){
-        if(result.hasErrors()){
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
+        Utils.checkValid4JSON(result);
         MyHistory myHistory = myHistoryService.modifyMyHistory(id, dto);
-
-        return new ResponseEntity(modelMapper.map(myHistory, MyHistoryDTO.Response.class), HttpStatus.OK);
+        return getResponseEntity(myHistory);
     }
+
+
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public ResponseEntity remove(@NonNull @PathVariable Long id){
@@ -64,7 +63,11 @@ public class MyHisotryController {
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public ResponseEntity get(@NonNull @PathVariable Long id){
-        return new ResponseEntity(modelMapper.map(myHistoryService.getMyHistory(id), MyHistoryDTO.Response.class), HttpStatus.OK);
+        return getResponseEntity(myHistoryService.getMyHistory(id));
     }
 
+
+    private ResponseEntity getResponseEntity(MyHistory myHistory) {
+        return new ResponseEntity(modelMapper.map(myHistory, MyHistoryDTO.Response.class), HttpStatus.OK);
+    }
 }
