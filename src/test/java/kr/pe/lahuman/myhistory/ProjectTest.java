@@ -2,8 +2,11 @@ package kr.pe.lahuman.myhistory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.pe.lahuman.Application;
+import kr.pe.lahuman.models.Project;
+import kr.pe.lahuman.models.ProjectVersion;
 import kr.pe.lahuman.project.ProjectDTO;
 import kr.pe.lahuman.project.ProjectService;
+import kr.pe.lahuman.project.ProjectVersionDTO;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -43,14 +47,32 @@ public class ProjectTest {
 
 
     @Test
-    public void getMyHistoryList() throws Exception {
+    public void projectSave() throws Exception {
         ProjectDTO.Request dto = new ProjectDTO.Request();
 
         dto.setName("기상청 유지관리 업무");
         dto.setContents("전자민원 유지관리 및 개선");
         dto.setProjectUrl("http://minwon.kma.go.kr");
         dto.setImageFile("/data/images/minwon.gif");
+        ProjectVersionDTO.Request projectVersion1 = new ProjectVersionDTO.Request();
+        projectVersion1.setVersion("1.0");
+        projectVersion1.setUpdateInfo("Firest Release");
+//        ProjectVersionDTO.Request projectVersion2 = new ProjectVersionDTO.Request();
+//        projectVersion2.setVersion("2.0");
 
+        Set<ProjectVersionDTO.Request> set = new HashSet<>();
+        set.add(projectVersion1);
+        dto.setProjectVersions(set);
+
+        Project project =service.addProject(dto);
+
+
+        Project result = service.getProject(1L);
+        System.out.println(project);
+        result.getProjectVersions().stream().forEach(projectVersion -> System.out.println(projectVersion.getVersion()));
+
+        service.addProject(dto);
+        service.addProject(dto);
 
 
 

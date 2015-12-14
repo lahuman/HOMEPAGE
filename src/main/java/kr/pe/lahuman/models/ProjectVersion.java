@@ -1,23 +1,39 @@
 package kr.pe.lahuman.models;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by lahuman on 15. 12. 7.
  */
 @Entity
-@Data
-public class ProjectVersion extends DefaultEntity {
-    @Id
-    @Column(name = "VERSION_ID", nullable = false)
+public class ProjectVersion extends DefaultEntity{
+    @Id @GeneratedValue
+    @Getter
+    @Setter
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "OWNER_ID")
+    @Getter
+    private Project owner;
+
+    @Getter @Setter
     private String version;
     @Column(length = 1000)
+    @Getter @Setter
     private String updateInfo;
+
+    public void setOwner(Project owner){
+        this.owner = owner;
+        if(!owner.getProjectVersions().contains(this)){
+            owner.getProjectVersions().add(this);
+        }
+    }
 
 }

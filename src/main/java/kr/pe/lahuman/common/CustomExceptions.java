@@ -10,8 +10,8 @@ public class CustomExceptions {
     private CustomExceptions(){};
 
     @Data
-    public static class JSONNotFoundException extends RuntimeException{
-        public JSONNotFoundException(String serviceCode, Long id){
+    public static class NotFoundException extends RuntimeException{
+        public NotFoundException(String serviceCode, Long id){
             super("Could not find ID : "+ id +" ::: SERVICE CODE :  "+serviceCode);
         }
     }

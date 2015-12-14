@@ -17,12 +17,13 @@ public class ProjectDTO {
 
     @Data
     public static class Response{
+        private Long id;
         private String imageFile;
         private String name;
         private String projectUrl;
         private String file;
         private String contents;
-        private Set<ProjectVersion> projectVersions = new HashSet<>();
+        private Set<ProjectVersionDTO.Response> projectVersions = new HashSet<>();
         private Date registerDt;
         private Date modifyDt;
     }
@@ -36,6 +37,6 @@ public class ProjectDTO {
         private String file;
         @NotBlank @Size(min = 10, max = 4000)
         private String contents;
-        private Set<ProjectVersion> projectVersions = new HashSet<>();
+        private Set<ProjectVersionDTO.Request> projectVersions = new HashSet<>();
     }
 }

@@ -47,7 +47,7 @@ public class MyHistoryService {
     public MyHistory getMyHistory(Long id){
         MyHistory myHistory = myHistoryRepository.findOne(id);
         if(myHistory == null){
-            throw new CustomExceptions.JSONNotFoundException(SERVICE_NAME, id);
+            throw new CustomExceptions.NotFoundException(SERVICE_NAME, id);
         }
         return myHistory;
     }
