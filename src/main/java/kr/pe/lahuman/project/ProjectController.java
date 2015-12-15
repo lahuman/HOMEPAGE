@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(value = "/project")
 @Slf4j
-@Transactional
 public class ProjectController {
 
     @Autowired
@@ -49,12 +48,19 @@ public class ProjectController {
         Utils.checkValid4JSON(result);
         return modelMapper.map(service.addProject(dto), ProjectDTO.Response.class);
     }
-    @RequestMapping(value = "{id}}", method = RequestMethod.PUT)
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     public ProjectDTO.Response update(@NonNull @PathVariable Long id, @RequestBody @Valid ProjectDTO.Request dto, BindingResult result){
         Utils.checkValid4JSON(result);
         return modelMapper.map(service.modifyProject(id, dto), ProjectDTO.Response.class);
     }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public ProjectDTO.Response get(@NonNull @PathVariable Long id){
+        return modelMapper.map(service.getProject(id), ProjectDTO.Response.class);
+    }
+
 
     @RequestMapping(value= "{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)

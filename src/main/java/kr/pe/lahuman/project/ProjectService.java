@@ -33,17 +33,11 @@ public class ProjectService {
     public Project addProject(ProjectDTO.Request dto){
         Project project = modelMapper.map(dto, Project.class);
         project.setRegisterDt(new Date());
-//        dto.setProjectVersions(new HashSet<>());
-//        dto.getProjectVersions().stream().map(m->modelMapper.map(m, ProjectVersion.class))
-//                .forEach(pv -> {project.addProjectVersions(pv); pv.setOwner(project);});
-        ;
-
         Project proResult = repository.save(project);
         project.getProjectVersions().stream().forEach(pv-> {
             pv.setOwner(proResult);
-            System.out.println(proResult);
-            ProjectVersion projectVersion= versionRepository.save(pv);
-            System.out.println(projectVersion);
+            pv.setRegisterDt(new Date());
+            versionRepository.save(pv);
         });
         return proResult;
     }
@@ -60,22 +54,28 @@ public class ProjectService {
         return project;
     }
     public Project modifyProject(Long id, ProjectDTO.Request dto){
+
         Project project = getProject(id);
-        project.setContents(dto.getContents());
-        project.setFile(dto.getFile());
-        project.setImageFile(dto.getImageFile());
+        project.setName(dto.getName());
         project.setProjectUrl(dto.getProjectUrl());
+        project.setContents(dto.getContents());
+        project.setImageFile(dto.getImageFile());
+        project.setFile(dto.getFile());
         project.setModifyDt(new Date());
-
-        dto.getProjectVersions().stream().map(m->modelMapper.map(m, ProjectVersion.class))
-                .forEach(pv -> project.addProjectVersions(pv));
-        repository.save(project);
-        project.getProjectVersions().stream().forEach(pv->versionRepository.save(pv));
-
-        return project;
+        Project proResult = repository.save(project);
+        versionRepository.deleteByOwner(getProject(id));
+        dto.getProjectVersions().stream().forEach(pv-> {
+            ProjectVersion npv = new ProjectVersion();
+            npv.setVersion(pv.getVersion());
+            npv.setUpdateInfo(pv.getUpdateInfo());
+            npv.setOwner(proResult);
+            npv.setRegisterDt(new Date());
+            versionRepository.save(npv);
+        });
+        return proResult;
     }
     public void removeProject(Long id){
-        getProject(id);
+        versionRepository.deleteByOwner(getProject(id));
         repository.delete(id);
     }
 

@@ -57,25 +57,34 @@ public class ProjectTest {
         ProjectVersionDTO.Request projectVersion1 = new ProjectVersionDTO.Request();
         projectVersion1.setVersion("1.0");
         projectVersion1.setUpdateInfo("Firest Release");
-//        ProjectVersionDTO.Request projectVersion2 = new ProjectVersionDTO.Request();
-//        projectVersion2.setVersion("2.0");
+        ProjectVersionDTO.Request projectVersion2 = new ProjectVersionDTO.Request();
+        projectVersion2.setVersion("2.0");
+
+
 
         Set<ProjectVersionDTO.Request> set = new HashSet<>();
         set.add(projectVersion1);
+        set.add(projectVersion2);
+
+
         dto.setProjectVersions(set);
 
         Project project =service.addProject(dto);
 
 
+        service.removeProject(1L);
+
         Project result = service.getProject(1L);
-        System.out.println(project);
-        result.getProjectVersions().stream().forEach(projectVersion -> System.out.println(projectVersion.getVersion()));
+
+        result.getProjectVersions().stream().forEach(projectVersion -> {
+            System.out.println(projectVersion.getId());
+            System.out.println(projectVersion.getVersion());
+            System.out.println(projectVersion.getOwner().getId());
+
+        });
 
         service.addProject(dto);
         service.addProject(dto);
-
-
-
     }
 
 }

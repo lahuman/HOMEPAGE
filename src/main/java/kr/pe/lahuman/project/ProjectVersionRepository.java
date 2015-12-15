@@ -1,5 +1,6 @@
 package kr.pe.lahuman.project;
 
+import kr.pe.lahuman.models.Project;
 import kr.pe.lahuman.models.ProjectVersion;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,4 +11,6 @@ import java.util.List;
  */
 public interface ProjectVersionRepository extends JpaRepository<ProjectVersion, Long> {
     List<ProjectVersion> findByOwnerId(Long id);
+
+    Long deleteByOwner(Project project);
 }

@@ -9,7 +9,6 @@ public class ProjectVersionDTO {
 
     @Data
     public static class Response {
-        private Long versionId;
         private String version;
         private String updateInfo;
     }
