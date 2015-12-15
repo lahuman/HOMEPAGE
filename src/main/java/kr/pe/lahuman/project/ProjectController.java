@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -65,6 +64,7 @@ public class ProjectController {
     @RequestMapping(value= "{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remove(@NonNull @PathVariable Long id){
+        service.getProject(id);
         service.removeProject(id);
     }
 }
