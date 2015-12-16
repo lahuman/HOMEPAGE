@@ -19,16 +19,6 @@ public class Utils {
                 .map(fieldError -> ((FieldError)fieldError).getField() + ":[" + fieldError.getCode()+"] "+fieldError.getDefaultMessage())
                 .collect(Collectors.joining(", "));
             throw new CustomExceptions.JSONBindValidException(errorMsg);
-
-//            StringBuilder errorMsg = new StringBuilder();
-//            for (Object object : result.getAllErrors()) {
-//                if(object instanceof FieldError) {
-//                    FieldError fieldError = (FieldError) object;
-//
-//                    errorMsg.append(fieldError.getField()+":"+fieldError.getCode());
-//                }
-//            }
-//            throw new CustomExceptions.JSONBindValidException(errorMsg.toString());
         }
     }
 
