@@ -74,5 +74,18 @@ public class CommentTest {
 //        result.andExpect(MockMvcResultMatchers.jsonPath("$.totalElements", CoreMatchers.is(5)));
 
         commentService.get(1L).getSubComment().stream().forEach(c -> System.out.println(c.getId()));
+
+
+        
+    }
+
+    @Test
+    public void getlist() throws Exception {
+
+        ResultActions result = mockMvc.perform(MockMvcRequestBuilders.get("/comment/MYHI"));
+
+
+        result.andDo(MockMvcResultHandlers.print());
+        result.andExpect(MockMvcResultMatchers.status().isOk());
     }
 }

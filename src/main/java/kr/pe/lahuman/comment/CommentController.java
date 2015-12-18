@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by lahuman on 15. 12. 16.
@@ -26,8 +28,9 @@ public class CommentController {
 
     @RequestMapping(value = "{code}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public CommentDTO.Response commentList(@NonNull @PathVariable Comment.Code code, @RequestParam(value = "codeId", required = false) Long codeId){
-        return modelMapper.map((codeId == null)?commentService.listByCode(code):commentService.listByCodeAndCodeId(code, codeId), CommentDTO.Response.class);
+    public List<CommentDTO.Response> commentList(@NonNull @PathVariable Comment.Code code, @RequestParam(value = "codeId", required = false) Long codeId){
+        List<Comment> list = (codeId == null)?commentService.listByCode(code):commentService.listByCodeAndCodeId(code, codeId);
+        return list.stream().map(comment -> modelMapper.map(comment, CommentDTO.Response.class)).collect(Collectors.toList());
     }
 
     @RequestMapping(value = "{code}", method = RequestMethod.POST)
