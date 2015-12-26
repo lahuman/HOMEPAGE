@@ -53,25 +53,19 @@ var RightMenu = React.createClass({
 		 return (
 	      <div>
 	        <div className="sidenav">
-	          <h1>Search</h1>
-	          <form action="index.html">
-	            <div>
-	              <input type="text" className="styled" name="search" /> <input type="submit" className="button" defaultValue="submit" />
-	            </div>
-	          </form>
-	          <h1>Something</h1>
+	          <h1>FRIEND LINK</h1>
 	          <ul>
 	            <li><a href="index.html">pellentesque</a></li>
 	            <li><a href="index.html">sociis natoque</a></li>
 	            <li><a href="index.html">convallis</a></li>
 	          </ul>
-	          <h1>Another thing</h1>
+	          <h1>RECOMMEND LINK</h1>
 	          <ul>
 	            <li><a href="index.html">consequat molestie</a></li>
 	            <li><a href="index.html">sem justo</a></li>
 	            <li><a href="index.html">semper</a></li>
 	          </ul>
-	          <h1>Third and last</h1>
+	          <h1>ETC</h1>
 	          <ul>
 	            <li><a href="index.html">sociis natoque</a></li>
 	            <li><a href="index.html">magna sed purus</a></li>
@@ -83,6 +77,9 @@ var RightMenu = React.createClass({
 	    );
 	}
 });
+
+
+// TODO : getLeft
 
 //TODO : getData
 
