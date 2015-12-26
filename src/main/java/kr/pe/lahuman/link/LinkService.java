@@ -48,7 +48,11 @@ public class LinkService {
         link.setCode(dto.getCode());
         link.setLink(dto.getLink());
         link.setName(dto.getName());
-
+        link.setModifyDt(new Date());
+        return linkRepository.save(link);
     }
 
+    public void remove(Long id){
+        linkRepository.delete(id);
+    }
 }
