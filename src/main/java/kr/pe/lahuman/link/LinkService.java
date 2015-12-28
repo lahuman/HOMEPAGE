@@ -4,6 +4,8 @@ import kr.pe.lahuman.common.CustomExceptions;
 import kr.pe.lahuman.models.Link;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -26,6 +28,10 @@ public class LinkService {
 
     public List<Link> listByCode(Link.Code code){
         return linkRepository.findByCode(code);
+    }
+
+    public Page<Link> list(Pageable pageable){
+        return linkRepository.findAll(pageable);
     }
 
     public Link get(Long id){
