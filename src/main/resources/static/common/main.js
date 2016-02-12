@@ -1,21 +1,40 @@
 var Contents = React.createClass({
+    getInitialState: function() {
+        return {
+            title: '',
+            registerDt: '',
+            content: ''
+        };
+    },
+
+    componentDidMount: function() {
+        this.serverRequest = $.get(this.props.source, function (result) {
+            var lastGist = result.content[0];
+            this.setState({
+                title: lastGist.title,
+                content: lastGist.contents,
+                registerDt: new Date(lastGist.registerDt).yyyymmdd()
+            });
+        }.bind(this));
+    },
+
+    componentWillUnmount: function() {
+        this.serverRequest.abort();
+    },
 	render: function(){
 		return (
 			<div>
-			 <h1>Porttitor posuere</h1>
-	        <div className="descr">Jun 13, 2006 by Vulputate</div>
-	        <p>In hac habitasse platea dictumst. Duis porttitor. Sed vulputate elementum nisl. Vivamus et mi at arcu mattis iaculis. Nullam posuere tristique tortor. In bibendum. Aenean ornare, <a href="index.html">nunc eget pretium</a> porttitor, sem est pretium leo, non euismod nulla dui non diam. Pellentesque dictum faucibus leo. Vestibulum ac ante. Sed in est.</p>
-	        <cite>Sed sodales nisl sit amet augue. Donec ultrices, augue ullamcorper posuere laoreet, turpis massa tristique justo, sed egestas metus magna sed purus.</cite>
-	        <p>Aliquam risus justo, mollis in, laoreet a, consectetuer nec, risus. Nunc blandit sodales lacus. Nam luctus semper mi. In eu diam.</p>
-	        <p>Fusce porta pede nec eros. Maecenas ipsum sem, interdum non, aliquam vitae, interdum nec, metus. Maecenas ornare lobortis risus. Etiam placerat varius mauris. Maecenas viverra. Sed feugiat. Donec mattis <a href="index.html">quam aliquam</a> risus. Nulla non felis sollicitudin urna blandit egestas. Integer et libero varius pede tristique ultricies. Cras nisl. Proin quis massa semper felis euismod ultricies.
-	        </p>
+			 <h1>{this.state.title}</h1>
+	        <div className="descr">{this.state.registerDt} by lahuman</div>
+                {this.state.content}
 	        </div>
 		);
 	}
 });
+
 var ContentFrame = React.createClass({
 	getContents: function(){
-		return <Contents />;
+		return <Contents source="/notice"/>;
 	},
 	render: function(){
 		{/*
@@ -77,11 +96,6 @@ var RightMenu = React.createClass({
 	    );
 	}
 });
-
-
-// TODO : getLeft
-
-//TODO : getData
 
 
 ReactDOM.render(

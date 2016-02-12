@@ -22,7 +22,7 @@ public class MyHistoryService {
     @Autowired
     private ModelMapper modelMapper;
 
-    private final String SERVICE_NAME = "SERVICE_NAME";
+    private final String SERVICE_NAME = "MyHistory";
 
     public Page<MyHistory> list(Pageable pageable){
         return myHistoryRepository.findAll(pageable);

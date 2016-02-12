@@ -32,7 +32,7 @@ public class Project extends DefaultEntity{
     @Column(length = 1000)
     private String file;
     @Getter @Setter
-    @Column(length = 4000)
+    @Column(columnDefinition = "TEXT")
     private String contents;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner")

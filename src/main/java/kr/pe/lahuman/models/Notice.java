@@ -8,15 +8,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * Created by lahuman on 15. 12. 7.
+ * Created by lahuman on 2016. 2. 12..
  */
-@Data
 @Entity
-public class SinglePhase extends DefaultEntity {
+@Data
+public class Notice extends DefaultEntity {
+
     @Id
     @GeneratedValue
     private Long id;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String contents;
+
+    @Column(length = 1000, nullable = false)
+    private String title;
 }

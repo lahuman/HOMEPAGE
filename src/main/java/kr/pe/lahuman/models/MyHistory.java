@@ -22,7 +22,7 @@ public class MyHistory extends DefaultEntity{
     private String startMonth;
     @Column(length = 2, nullable = false)
     private String endMonth;
-    @Column(length = 4000, nullable = false)
+    @Column(columnDefinition = "TEXT",  nullable = false)
     private String contents;
 
 

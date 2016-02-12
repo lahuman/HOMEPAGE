@@ -27,6 +27,15 @@
 	      f(this.getUTCMilliseconds(), 3) + 'Z';
 	  };
 	}
+
+	var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+	Date.prototype.yyyymmdd = function() {
+		var yyyy = this.getFullYear().toString();
+		var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+		var dd  = this.getDate().toString();
+		return months[this.getMonth()] + " " + (dd[1]?dd:"0"+dd[0]) + " " + yyyy; // padding
+	};
 </script>
 </head>
 <body>
